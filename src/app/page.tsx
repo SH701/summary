@@ -14,6 +14,8 @@ export default function DocumentSummarizer() {
   const [isLoading, setIsLoading] = useState(false);
   const [summary, setSummary] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [tags, setTags] = useState([""]);
+  const [category, setCategory] = useState("");
 
   const handleReset = () => {
     setFile(null);
@@ -39,8 +41,9 @@ export default function DocumentSummarizer() {
         throw new Error("API 오류");
       }
       const data = await res.json();
-      console.log(data);
-      setSummary(data);
+      setSummary(data.summary);
+      setTags(data.tags);
+      setCategory(data.category);
     } catch {
       setError("오류 발생");
     } finally {
@@ -82,12 +85,12 @@ export default function DocumentSummarizer() {
 
           {/* 오른쪽: 요약 결과 영역 */}
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-semibold text-gray-800">
-                요약 결과
-              </h2>
-            </div>
-            <SummaryResult summary={summary} isLoading={isLoading} />
+            <SummaryResult
+              summary={summary}
+              isLoading={isLoading}
+              tags={tags}
+              category={category}
+            />
           </div>
         </div>
       </div>

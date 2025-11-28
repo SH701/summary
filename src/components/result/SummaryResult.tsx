@@ -3,9 +3,16 @@ import { FileText, Loader2, Download } from "lucide-react";
 interface SummaryProps {
   summary: string;
   isLoading: boolean;
+  tags: string[];
+  category: string;
 }
 
-export default function SummaryResult({ summary, isLoading }: SummaryProps) {
+export default function SummaryResult({
+  summary,
+  isLoading,
+  tags,
+  category,
+}: SummaryProps) {
   if (isLoading) {
     return (
       <div className="h-96 flex flex-col items-center justify-center">
@@ -44,9 +51,14 @@ export default function SummaryResult({ summary, isLoading }: SummaryProps) {
           <span>다운로드</span>
         </button>
       </div>
-
       <div className="bg-gray-50 rounded-xl p-6 whitespace-pre-wrap text-gray-700 leading-relaxed">
-        {summary}
+        <strong>요약:</strong> {summary}
+      </div>
+      <div className="bg-gray-50 rounded-xl p-6 whitespace-pre-wrap text-gray-700 leading-relaxed">
+        <strong>태그:</strong> {tags.join()}
+      </div>
+      <div className="bg-gray-50 rounded-xl p-6 whitespace-pre-wrap text-gray-700 leading-relaxed">
+        <strong>카테고리:</strong> {category}
       </div>
     </>
   );
