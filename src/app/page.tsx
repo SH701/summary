@@ -56,7 +56,6 @@ export default function DocumentSummarizer() {
         <Header />
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* 왼쪽: 파일 업로드 영역 */}
           <div className="space-y-6">
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -79,11 +78,9 @@ export default function DocumentSummarizer() {
               />
             </div>
 
-            {/* 지원 파일 형식 */}
             <FileObject />
           </div>
 
-          {/* 오른쪽: 요약 결과 영역 */}
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <SummaryResult
               summary={summary}
