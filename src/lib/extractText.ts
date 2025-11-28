@@ -4,10 +4,10 @@ import type { TextContent, TextItem } from "pdfjs-dist/types/src/display/api";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
-export async function extractText(file: File): Promise<string> {
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const mimetype = file.type;
-
+export async function extractText(
+  mimetype: string,
+  buffer: Buffer
+): Promise<string> {
   // PDF
   if (mimetype === "application/pdf") {
     const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
@@ -26,7 +26,8 @@ export async function extractText(file: File): Promise<string> {
 
     return text.trim();
   }
-  // Docx
+
+  // DOCX
   if (
     mimetype ===
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -35,7 +36,7 @@ export async function extractText(file: File): Promise<string> {
     return result.value;
   }
 
-  //   Txt
+  // TXT
   if (mimetype === "text/plain") {
     return buffer.toString("utf-8");
   }
