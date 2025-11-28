@@ -39,7 +39,8 @@ export default function DocumentSummarizer() {
         throw new Error("API 오류");
       }
       const data = await res.json();
-      setSummary(data.summary);
+      console.log(data);
+      setSummary(data);
     } catch {
       setError("오류 발생");
     } finally {

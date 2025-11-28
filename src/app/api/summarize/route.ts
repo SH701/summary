@@ -11,7 +11,14 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const text = await extractText(file.type, buffer);
-    const result = await Summaries(text);
+    const clean = text
+      .replace(/페이지 구분이 있습니다\./g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const result = await Summaries(clean);
+
+    console.log("result :", result);
     return Response.json(result);
   } catch (err) {
     console.log(err);
@@ -19,7 +26,7 @@ export async function POST(req: Request) {
       {
         error: "요약에 실패했습니다",
       },
-      { status: 500 }
+      { status: 403 }
     );
   }
 }
